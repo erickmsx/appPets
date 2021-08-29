@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">AppPets</string>
+    <string name="descricao">O lugar perfeito para salvar \n informações do seu pet</string>
+    <string name="expander">esse é o expander</string>
+    <string name="logout">Sair</string>
+</resources>

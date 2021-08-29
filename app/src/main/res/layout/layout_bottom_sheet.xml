@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheetContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bottom_sheet_background"
+    android:contentDescription="bbb"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:src="@drawable/line" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center|start"
+        android:paddingLeft="20dp"
+        android:text="Alterar foto de perfil"
+        android:textSize="15dp" />
+
+    <Button
+        android:id="@+id/editCamera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:focusableInTouchMode="false"
+        android:gravity="center|start"
+        android:paddingLeft="20dp"
+        android:stateListAnimator="@null"
+        android:text="Abrir câmera"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="18dp"
+        app:backgroundTintMode="screen" />
+
+    <Button
+        android:id="@+id/editGallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center|start"
+        android:paddingLeft="20dp"
+        android:stateListAnimator="@null"
+        android:text="Escolher da galeria"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="18dp" />
+
+</LinearLayout>
