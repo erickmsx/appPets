@@ -20,14 +20,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppPets">
         <activity
+            android:name=".activity.PetsDescriptionActivity"
+            android:exported="true"
+            android:parentActivityName=".activity.ListPetsActivity"/>
+        <activity
             android:name=".activity.ListPetsActivity"
             android:exported="true" />
-        <activity
-            android:name=".adapter.AdapterPet"
-            android:exported="true" />
-        <activity
-            android:name=".activity.ListPets"
-            android:exported="true" />
+
         <activity
             android:name=".activity.UserRegisterActivity"
             android:exported="true" />

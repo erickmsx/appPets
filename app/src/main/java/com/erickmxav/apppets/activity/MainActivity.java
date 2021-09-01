@@ -22,6 +22,5 @@ public class MainActivity extends AppCompatActivity {
 
     public void openListPets(View view) {
         startActivity(new Intent(this, ListPetsActivity.class));
-        finish();
     }
 }

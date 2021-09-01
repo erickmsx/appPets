@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -29,8 +30,10 @@ import com.erickmxav.apppets.config.FirebaseConfig;
 import com.erickmxav.apppets.helper.UserFirebase;
 import com.erickmxav.apppets.helper.Permission;
 import com.erickmxav.apppets.model.Pet;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,6 +42,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +71,7 @@ public class PetRegisterActivity extends AppCompatActivity {
     private String userId;
     private DatabaseReference petRef;
     private DatabaseReference userRef;
+    private Uri urlImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,6 +189,15 @@ public class PetRegisterActivity extends AppCompatActivity {
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            imagemRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Uri> task) {
+                                    Uri url = task.getResult();
+                                    urlImage = url;
+                                }
+                            });
+
                             Toast.makeText(PetRegisterActivity.this,
                                     "Sucesso ao fazer upload da imagem",
                                     Toast.LENGTH_SHORT).show();
@@ -207,6 +221,7 @@ public class PetRegisterActivity extends AppCompatActivity {
         pet.setName( fieldName.getText().toString() );
         pet.setBirthDate( fieldBirthDate.getText().toString() );
         pet.setSpecie( fieldspecie.getText().toString() );
+        pet.setPhoto( urlImage.toString() );
 
         pet.Register();
 

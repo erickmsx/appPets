@@ -5,11 +5,14 @@ import com.erickmxav.apppets.helper.Base64Custom;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
-public class Pet {
+import java.io.Serializable;
+
+public class Pet implements Serializable {
 
     private String name;
     private String birthDate;
     private String specie;
+    private String photo;
 
     public Pet() {
     }
@@ -27,6 +30,14 @@ public class Pet {
                 .push()
                 .setValue( this );
 
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getName() {

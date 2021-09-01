@@ -1,7 +1,9 @@
 package com.erickmxav.apppets.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.AdapterView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,6 +13,7 @@ import com.erickmxav.apppets.R;
 import com.erickmxav.apppets.adapter.AdapterPet;
 import com.erickmxav.apppets.config.FirebaseConfig;
 import com.erickmxav.apppets.helper.Base64Custom;
+import com.erickmxav.apppets.helper.RecyclerItemClickListener;
 import com.erickmxav.apppets.model.Pet;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,8 +31,8 @@ public class ListPetsActivity extends AppCompatActivity {
     private DatabaseReference userRef;
 
     private RecyclerView recyclerListPets;
-    private AdapterPet adapterPet;
-    private List<Pet> pets = new ArrayList<>();
+    private AdapterPet adapter;
+    private List<Pet> petsList = new ArrayList<>();
     private Pet pet;
     private DatabaseReference petRef;
     private ValueEventListener valueEventListenerUser;
@@ -43,13 +46,42 @@ public class ListPetsActivity extends AppCompatActivity {
 
 
         //Configurar adapter
-        adapterPet = new AdapterPet(pets, this);
+        adapter = new AdapterPet (petsList, this);
 
         //Configurar RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerListPets.setLayoutManager(layoutManager);
         recyclerListPets.setHasFixedSize(true);
-        recyclerListPets.setAdapter(adapterPet);
+        recyclerListPets.setAdapter(adapter);
+
+        //Config eventclick on recyclerview
+        recyclerListPets.addOnItemTouchListener(
+                new RecyclerItemClickListener(
+                        this,
+                        recyclerListPets,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+
+                                Pet selectedPet = petsList.get( position );
+                                Intent i = new Intent(getApplicationContext(), PetsDescriptionActivity.class);
+                                i.putExtra("petsDescription", selectedPet);
+                                startActivity( i );
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+
+                            }
+
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                            }
+                        }
+                )
+
+        );
     }
 
     public void recoverPets(){
@@ -59,20 +91,19 @@ public class ListPetsActivity extends AppCompatActivity {
         petRef = firebaseRef.child("pets")
                 .child( idUser );
 
-
         valueEventListenerUser = petRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                pets.clear();
+                petsList.clear();
                 for (DataSnapshot dados: dataSnapshot.getChildren() ){
 
                     Pet pet = dados.getValue( Pet.class );
-                    pets.add( pet );
+                    petsList.add( pet );
 
                 }
 
-                adapterPet.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
 
             }
 
@@ -88,6 +119,7 @@ public class ListPetsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         recoverPets();
+
     }
 
     @Override
