@@ -100,11 +100,9 @@ public class ListPetsActivity extends AppCompatActivity {
 
                     Pet pet = dados.getValue( Pet.class );
                     petsList.add( pet );
-
                 }
 
                 adapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -112,14 +110,12 @@ public class ListPetsActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         recoverPets();
-
     }
 
     @Override

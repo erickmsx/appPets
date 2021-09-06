@@ -91,6 +91,11 @@ public class UserRegisterActivity extends AppCompatActivity {
                         String idUser = Base64Custom.codifyBase64( user.getEmail() );
                         user.setIdUser( idUser);
                         user.save();
+
+                        Toast.makeText(UserRegisterActivity.this,
+                                "Cadastro efetuado com sucesso!",
+                                Toast.LENGTH_SHORT).show();
+
                         finish();
 
                     }catch (Exception e){

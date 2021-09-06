@@ -66,20 +66,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        verifyUserLogged();
-    }
-
-    public void openHome(View view) {
-        startActivity(new Intent(this, MainActivity.class));
-    }
-
-    public void openUserRegister(View view) {
-        startActivity(new Intent(this, UserRegisterActivity.class));
-    }
-
     public void validateLogIn() {
         authentication = FirebaseConfig.getAuthenticationFirebase();
         authentication.signInWithEmailAndPassword(
@@ -136,6 +122,20 @@ public class LoginActivity extends AppCompatActivity {
     public void openHome() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        verifyUserLogged();
+    }
+
+    public void openHome(View view) {
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
+    public void openUserRegister(View view) {
+        startActivity(new Intent(this, UserRegisterActivity.class));
     }
 }
 
