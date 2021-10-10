@@ -17,7 +17,7 @@ Download all files and load into Android Studio  2020.3 version
 
 ## Resources
 * The App was made in Android Studio supported for Java
-* The authentication and user data register were made utilizing <a href="https://firebase.google.com//">Firebase</a>
+* Authentication and user data register were made utilizing <a href="https://firebase.google.com//">Firebase</a>
 * For listing the pets was utilized RecyclerView
 * All project based in object oriented programming
 
