@@ -13,7 +13,7 @@ It was made to put in practice all the knowledge I've been learning.
 
 ## Resources
 * The App was made in Android Studio supported for Java
-* The authentication and user data register were made utilizing Firebase https://firebase.google.com/
+* The authentication and user data register were made utilizing <a href="https://firebase.google.com//">Firebase</a>
 * For listing the pets was utilized RecyclerView
 * All project based in object oriented programming
 
