@@ -18,5 +18,5 @@ It was made to put in practice all the knowledge I've been learning.
 * All project based in object oriented programming
 
 ## Author
-Erick Martins 🙋‍♂️ https://www.linkedin.com/in/erick-martins-09a967208/
+<a href="https://www.linkedin.com/in/erick-martins-09a967208/">Erick Martins</a>
 
