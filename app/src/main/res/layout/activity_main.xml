@@ -5,8 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
-    android:onClick="openCadastrarPet"
+    android:onClick="openRegisterPet"
     tools:context=".activity.MainActivity">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <Button
         android:id="@+id/button"
@@ -33,7 +39,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:onClick="openCadastrarPet"
+        android:onClick="openRegisterPet"
         android:text="Cadastrar pet"
         android:textAllCaps="false"
         app:backgroundTint="#6C0A0A"

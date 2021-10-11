@@ -2,10 +2,8 @@ package com.erickmxav.apppets.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -52,9 +50,6 @@ public class PetsDescriptionActivity extends AppCompatActivity {
             }else {
                 imageProfDesc.setImageResource(R.drawable.perfil);
             }
-
         }
-
-
     }
 }

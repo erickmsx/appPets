@@ -2,26 +2,22 @@ package com.erickmxav.apppets.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,12 +36,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import java.io.ByteArrayOutputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PetRegisterActivity extends AppCompatActivity {
@@ -64,7 +55,9 @@ public class PetRegisterActivity extends AppCompatActivity {
     private Button chooseGallery;
     private Button changeImageprofile;
     private CircleImageView imageProfile;
+    private ProgressBar progressBarPhoto;
     private Pet pet;
+    private ProgressDialog progressDialog;
 
     private StorageReference storageReference;
     private FirebaseAuth authentication;
@@ -93,17 +86,11 @@ public class PetRegisterActivity extends AppCompatActivity {
         changeImageprofile = findViewById(R.id.changeImageProf);
         imageProfile = findViewById(R.id.imageProf);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Cadastre um pet");
-        setSupportActionBar( toolbar );
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         //Recover user data
         FirebaseUser user = UserFirebase.getActualUser();
         Uri url = user.getPhotoUrl();
 
-        Button buttonShow = changeImageprofile;
-        buttonShow.setOnClickListener(new View.OnClickListener() {
+        changeImageprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -122,7 +109,6 @@ public class PetRegisterActivity extends AppCompatActivity {
                         Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         if ( i.resolveActivity(getPackageManager()) != null ) {
                             startActivityForResult(i, SELECAO_CAMERA);
-
                         }
                     }
                 });
@@ -133,7 +119,6 @@ public class PetRegisterActivity extends AppCompatActivity {
                         Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI );
                         if ( i.resolveActivity(getPackageManager()) != null ){
                             startActivityForResult(i, SELECAO_GALERIA );
-
                         }
                     }
                 });
@@ -144,84 +129,91 @@ public class PetRegisterActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult ( int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
-        if ( resultCode == RESULT_OK ){
+        if (resultCode == RESULT_OK) {
             Bitmap imagem = null;
 
             try {
 
-                switch ( requestCode ){
+                switch (requestCode) {
                     case SELECAO_CAMERA:
                         imagem = (Bitmap) data.getExtras().get("data");
                         break;
                     case SELECAO_GALERIA:
                         Uri selectedImage = data.getData();
-                        imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage );
+                        imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
                         break;
                 }
 
-                if ( imagem != null ){
+                if (imagem != null) {
 
-                    imageProfile.setImageBitmap( imagem );
+                    progressDialog = new ProgressDialog(PetRegisterActivity.this);
+                    progressDialog.show();
+                    progressDialog.setContentView(R.layout.custom_dialog);
+                    progressDialog.getWindow().setBackgroundDrawableResource(
+                            android.R.color.transparent
+                    );
+                    progressDialog.setCancelable(false);
+
+                    imageProfile.setImageBitmap(imagem);
 
                     //Recuperar dados da imagem para o firebase
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    imagem.compress(Bitmap.CompressFormat.JPEG, 70, baos );
+                    imagem.compress(Bitmap.CompressFormat.JPEG, 70, baos);
                     byte[] dadosImagem = baos.toByteArray();
 
                     //Salvar imagem no firebase
                     StorageReference imagemRef = storageReference
                             .child("imagens")
                             .child("pets")
-                            .child( userId )
+                            .child(userId)
                             .child(userId + ".jpeg");
 
-                    UploadTask uploadTask = imagemRef.putBytes( dadosImagem );
+                    UploadTask uploadTask = imagemRef.putBytes(dadosImagem);
                     uploadTask.addOnFailureListener(new OnFailureListener() {
+
                         @Override
                         public void onFailure(@NonNull Exception e) {
+
                             Toast.makeText(PetRegisterActivity.this,
                                     "Erro ao fazer upload da imagem",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                             imagemRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
+
                                     Uri url = task.getResult();
                                     urlImage = url;
+                                    progressDialog.dismiss();
                                 }
                             });
-
-                            Toast.makeText(PetRegisterActivity.this,
-                                    "Sucesso ao fazer upload da imagem",
-                                    Toast.LENGTH_SHORT).show();
                         }
                     });
-
                 }
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
-
     }
 
     //Register pet
-    public void registerPet(View view){
+    public void registerPet (View view){
 
         pet = new Pet();
-        pet.setName( fieldName.getText().toString() );
-        pet.setBirthDate( fieldBirthDate.getText().toString() );
-        pet.setSpecie( fieldspecie.getText().toString() );
-        pet.setPhoto( urlImage.toString() );
+        pet.setName(fieldName.getText().toString());
+        pet.setBirthDate(fieldBirthDate.getText().toString());
+        pet.setSpecie(fieldspecie.getText().toString());
+        pet.setPhoto(urlImage.toString());
 
         pet.Register();
 
@@ -231,32 +223,7 @@ public class PetRegisterActivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch ( item.getItemId() ){
-            case R.id.logOut:
-                authentication.signOut();
-                startActivity(new Intent(this, LoginActivity.class));
-                finish();
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
     //Permissões galeria/camera
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

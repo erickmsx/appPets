@@ -29,7 +29,6 @@ public class Pet implements Serializable {
                 .child( idUser )
                 .push()
                 .setValue( this );
-
     }
 
     public String getPhoto() {

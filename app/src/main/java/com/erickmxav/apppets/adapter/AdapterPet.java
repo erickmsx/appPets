@@ -70,6 +70,5 @@ public class AdapterPet extends RecyclerView.Adapter<AdapterPet.MyViewHolder> {
             specie = itemView.findViewById(R.id.textAdapterSpecie);
             photo = itemView.findViewById(R.id.photoPetAdapter);
         }
-
     }
 }

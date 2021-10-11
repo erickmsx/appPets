@@ -44,7 +44,6 @@ public class ListPetsActivity extends AppCompatActivity {
 
         recyclerListPets = findViewById(R.id.recyclerListPets);
 
-
         //Configurar adapter
         adapter = new AdapterPet (petsList, this);
 
@@ -54,7 +53,7 @@ public class ListPetsActivity extends AppCompatActivity {
         recyclerListPets.setHasFixedSize(true);
         recyclerListPets.setAdapter(adapter);
 
-        //Config eventclick on recyclerview
+        //Config event click on recyclerview
         recyclerListPets.addOnItemTouchListener(
                 new RecyclerItemClickListener(
                         this,
@@ -80,7 +79,6 @@ public class ListPetsActivity extends AppCompatActivity {
                             }
                         }
                 )
-
         );
     }
 

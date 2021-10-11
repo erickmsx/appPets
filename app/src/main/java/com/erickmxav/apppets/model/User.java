@@ -11,6 +11,7 @@ public class User implements Serializable {
     private String name;
     private String email;
     private String password;
+    private String userLevel;
 
     public User() {
     }
@@ -54,5 +55,13 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUserLevel() {
+        return userLevel;
+    }
+
+    public void setUserLevel(String userLevel) {
+        this.userLevel = userLevel;
     }
 }

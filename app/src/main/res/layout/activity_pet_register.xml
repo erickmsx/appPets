@@ -9,24 +9,18 @@
     tools:layout_editor_absoluteX="-1dp"
     tools:layout_editor_absoluteY="52dp">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/toolbar"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageProf"
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/perfil"
         app:civ_border_color="@color/black"
         app:civ_border_width="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/include" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/registerPet"
@@ -34,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:onClick="registerPet"
@@ -44,7 +39,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSpecie" />
+        app:layout_constraintTop_toBottomOf="@+id/editSpecie"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editName"
