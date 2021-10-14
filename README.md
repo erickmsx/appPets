@@ -1,8 +1,8 @@
 # AppPets 🐱🐶
 
 ![3](https://user-images.githubusercontent.com/84104484/137390866-7344952f-b074-405c-9959-a39161212b99.gif)
-![2](https://user-images.githubusercontent.com/84104484/137392333-58030bf4-fcfc-4bad-ada5-c097d6aa92a6.gif)
 ![3](https://user-images.githubusercontent.com/84104484/137392772-14925831-6c6f-495b-8d46-29cc30cd8101.gif)
+![2](https://user-images.githubusercontent.com/84104484/137392333-58030bf4-fcfc-4bad-ada5-c097d6aa92a6.gif)
 
 
 
