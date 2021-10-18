@@ -4,15 +4,14 @@ import android.util.Base64;
 
 public class Base64Custom {
 
-    public static String codifyBase64(String texto){
+    public static String codifyBase64(String text){
 
-        return Base64.encodeToString( texto.getBytes(), Base64.DEFAULT )
+        return Base64.encodeToString( text.getBytes(), Base64.DEFAULT )
     .replaceAll("\\n|\\r", "");
-
     }
 
-    public static String decodificarBase64(String textoCodificao){
+    public static String decodifyBase64(String codifyText){
 
-        return new String (Base64.decode( textoCodificao, Base64.DEFAULT ) );
+        return new String (Base64.decode( codifyText, Base64.DEFAULT ) );
     }
 }

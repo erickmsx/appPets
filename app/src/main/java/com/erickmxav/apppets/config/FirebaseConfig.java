@@ -35,8 +35,5 @@ public class FirebaseConfig {
             storage = FirebaseStorage.getInstance().getReference();
         }
         return storage;
-
     }
-
-
 }

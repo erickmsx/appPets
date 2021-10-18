@@ -24,6 +24,7 @@ public class AdapterPet extends RecyclerView.Adapter<AdapterPet.MyViewHolder> {
     Context context;
 
     public AdapterPet(List<Pet> pets, Context context) {
+
         this.pets = pets;
         this.context = context;
     }
@@ -36,6 +37,7 @@ public class AdapterPet extends RecyclerView.Adapter<AdapterPet.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+
         Pet pet = pets.get(position);
         holder.name.setText(pet.getName());
         holder.specie.setText(pet.getSpecie());

@@ -46,7 +46,6 @@ public class UserRegisterActivity extends AppCompatActivity {
                 String textPassword = fieldPassword.getText().toString();
 
                 //Validation if the fields have been filled in
-
                 if ( !textName.isEmpty() ) {
                     if ( !textEmail.isEmpty() ){
                         if ( !textPassword.isEmpty() ){
@@ -87,7 +86,6 @@ public class UserRegisterActivity extends AppCompatActivity {
                 if( task.isSuccessful() ) {
 
                     try{
-
                         String idUser = Base64Custom.codifyBase64( user.getEmail() );
                         user.setIdUser( idUser);
                         user.save();

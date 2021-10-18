@@ -59,6 +59,7 @@ public class ListPetsActivity extends AppCompatActivity {
                         this,
                         recyclerListPets,
                         new RecyclerItemClickListener.OnItemClickListener() {
+
                             @Override
                             public void onItemClick(View view, int position) {
 
@@ -75,7 +76,6 @@ public class ListPetsActivity extends AppCompatActivity {
 
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
                             }
                         }
                 )
@@ -94,6 +94,7 @@ public class ListPetsActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 petsList.clear();
+
                 for (DataSnapshot dados: dataSnapshot.getChildren() ){
 
                     Pet pet = dados.getValue( Pet.class );
@@ -105,7 +106,6 @@ public class ListPetsActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
