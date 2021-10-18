@@ -159,12 +159,12 @@ public class PetRegisterActivity extends AppCompatActivity {
 
                     imageProfile.setImageBitmap(imagem);
 
-                    //Recuperar dados da imagem para o firebase
+                    //Image conversion
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     imagem.compress(Bitmap.CompressFormat.JPEG, 70, baos);
                     byte[] dadosImagem = baos.toByteArray();
 
-                    //Salvar imagem no firebase
+                    //Save image on Firebase
                     StorageReference imagemRef = storageReference
                             .child("imagens")
                             .child("pets")
@@ -223,7 +223,7 @@ public class PetRegisterActivity extends AppCompatActivity {
         finish();
     }
 
-    //Permissões galeria/camera
+    //galery/camera permissions
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

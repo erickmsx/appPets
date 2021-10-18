@@ -14,6 +14,5 @@ public class Base64Custom {
     public static String decodificarBase64(String textoCodificao){
 
         return new String (Base64.decode( textoCodificao, Base64.DEFAULT ) );
-
     }
 }

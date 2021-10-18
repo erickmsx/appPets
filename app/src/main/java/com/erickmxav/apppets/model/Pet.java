@@ -19,8 +19,7 @@ public class Pet implements Serializable {
 
     public void Register(){
 
-        //método pra pegar o email do usuário que está logado e codificar pra ser usado
-        //no idUsuario do firebase
+        //codify email to idUser in base64
         FirebaseAuth authentication = FirebaseConfig.getAuthenticationFirebase();
         String idUser = Base64Custom.codifyBase64( authentication.getCurrentUser().getEmail() );
 
