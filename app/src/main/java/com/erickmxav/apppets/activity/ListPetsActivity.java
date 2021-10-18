@@ -44,10 +44,10 @@ public class ListPetsActivity extends AppCompatActivity {
 
         recyclerListPets = findViewById(R.id.recyclerListPets);
 
-        //Configurar adapter
+        //Config adapter
         adapter = new AdapterPet (petsList, this);
 
-        //Configurar RecyclerView
+        //Config RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerListPets.setLayoutManager(layoutManager);
         recyclerListPets.setHasFixedSize(true);
